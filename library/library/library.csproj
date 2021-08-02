@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="library.Tests\library.Tests.csproj" />
+    <ProjectReference Include="..\library.Tests\library.Tests.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

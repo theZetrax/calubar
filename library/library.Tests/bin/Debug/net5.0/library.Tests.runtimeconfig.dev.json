@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/home/zetrax/.dotnet/store/|arch|/|tfm|",
+      "/home/zetrax/.nuget/packages"
+    ]
+  }
+}
