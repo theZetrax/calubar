@@ -25,4 +25,3 @@ We are going to identify each functionality in this pattern.
         - The application directory has a `appdef.json` file that has all the application definitions
             within the directory.
 3. Updating the backend service.
-
