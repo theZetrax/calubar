@@ -1,0 +1,27 @@
+{
+  "name": "binmanager",
+  "version": "1.0.0",
+  "description": "A simple way to manage your applications.",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "lint": "eslint -c .eslintrc --ext .ts ./src",
+    "start": "npm run build && electron ./dist/main.js"
+  },
+  "keywords": ["Electron", "App Manager", "utility",  "typescript"],
+  "author": "Zablon Dawit <contact@zetrax.io> (zetrax.io)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theZetrax/binmanager"
+  },
+"devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
+    "electron": "^15.0.0",
+    "eslint": "^7.32.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {}
+  "license": "Apache-2.0"
+}
