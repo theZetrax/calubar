@@ -1,6 +1,6 @@
 # Introduction
 
-**Binmanager** is a simple application manager for downloading zip apps and executables from your fevorite websites. This handles updating your applications and also specifying your source for your application.
+**Binmanager** is a simple application manager for downloading zip apps and executables from your favorite websites. This handles updating your applications and also specifying your source for your application.
 
 ## Features
 
