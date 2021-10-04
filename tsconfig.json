@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
     "module": "commonjs",
+    "target": "ES5",
     "noImplicitAny": true,
     "sourceMap": true,
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "*": ["node_modules/*"]
+      "*": ["node_modules/*"],
+      "binmanager/*": ["src/*"],
+      "lib/*": ["src/lib/*"]
     },
-    "allowJs": true
+    "moduleResolution": "Node"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*", "tests/**/*"]
 }
