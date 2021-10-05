@@ -1,18 +1,20 @@
 import { app, BrowserWindow } from 'electron'
-import * as path from 'path'
+declare const MAIN_WINDOW_WEBPACK_ENTRY: string
+declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 
 function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-    },
+    height: 800,
     width: 800,
+    webPreferences: {
+      nodeIntegration: true,
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+    },
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, '../index.html'))
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools()
