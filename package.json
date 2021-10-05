@@ -4,8 +4,8 @@
   "description": "A simple way to manage your applications.",
   "main": "build/index.js",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
+    "build": "tsc -p config/tsconfig.build.json",
+    "watch": "tsc -p config/tsconfig.build.json  -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
     "start": "npm run build && electron ./dist/main.js",
     "test": "jest",
