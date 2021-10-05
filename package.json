@@ -2,14 +2,16 @@
   "name": "binmanager",
   "version": "1.0.0",
   "description": "A simple way to manage your applications.",
-  "main": "build/index.js",
+  "main": "dist/main.js",
   "scripts": {
     "build": "tsc -p config/tsconfig.build.json",
     "watch": "tsc -p config/tsconfig.build.json  -w",
     "lint": "eslint -c .eslintrc --ext .ts ./src",
-    "start": "npm run build && electron ./dist/main.js",
+    "start": "electron-forge start",
     "test": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "keywords": [
     "Electron",
@@ -23,6 +25,11 @@
     "url": "https://github.com/theZetrax/binmanager"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.61",
+    "@electron-forge/maker-deb": "^6.0.0-beta.61",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
+    "@electron-forge/maker-zip": "^6.0.0-beta.61",
     "@types/jest": "^27.0.2",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.32.0",
@@ -38,8 +45,36 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2"
   },
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "binmanager"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
 }
