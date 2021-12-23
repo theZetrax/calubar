@@ -1,6 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import { ipcMain } from 'electron'
 import { env } from 'process'
+import { isMainThread, Worker } from 'worker_threads'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
@@ -52,11 +53,31 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
 
+// Added Worker
 // Do process intensive task
 ipcMain.on('calculate-bars', (event, args) => {
   console.log('Async Work Here', args)
 
-  setTimeout(() => {
-    event.reply('calculate-bars-complete', 'complete')
-  }, 1500)
+  let calculationWorker: Worker
+  if (isMainThread) {
+    calculationWorker = new Worker('./src/worker.js')
+
+    calculationWorker.on('error', (data) => {
+      console.log('\nGot Error', {
+        data,
+      })
+    })
+
+    calculationWorker.on('exit', (data) => {
+      console.log('Got Exit')
+    })
+
+    calculationWorker.on('message', () => {
+      console.log('Message back')
+      event.reply('calculate-bars-complete', { value: 2 })
+      calculationWorker.terminate()
+    })
+  }
+
+  calculationWorker.postMessage({ value: 2, apple: 'blue' })
 })
