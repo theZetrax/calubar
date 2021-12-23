@@ -5,7 +5,7 @@
   "main": ".webpack/main",
   "scripts": {
     "lint": "eslint -c .eslintrc --ext .ts ./src",
-    "start": "electron-forge start",
+    "start": "export MODE=development && electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",

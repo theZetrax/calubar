@@ -1,4 +1,6 @@
 import { app, BrowserWindow } from 'electron'
+import { env } from 'process'
+
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 
@@ -16,8 +18,8 @@ function createWindow() {
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // Open the DevTools, if in dev mode.
+  if (env.MODE === 'development') mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -26,7 +28,7 @@ function createWindow() {
 app.on('ready', () => {
   createWindow()
 
-  app.on('activate', function () {
+  app.on('activate', function() {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()

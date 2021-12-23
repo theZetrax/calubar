@@ -3,7 +3,7 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleNameMapper: {
-    '^@binmanager/(.*)': '<rootDir>/src/$1',
+    '^@calubar/(.*)': '<rootDir>/src/$1',
     '^@lib/(.*)': '<rootDir>/src/lib/$1',
     '^@components/(.*)': '<rootDir>/src/components/$1',
   },
