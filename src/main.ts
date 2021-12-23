@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron'
 import { ipcMain } from 'electron'
 import { env } from 'process'
 import { isMainThread, Worker } from 'worker_threads'
+import path from 'path'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
@@ -59,7 +60,7 @@ ipcMain.on('calculate-bars', (event, { lengths }) => {
   let calculationWorker: Worker
   if (isMainThread) {
     // Loading calculation worker
-    calculationWorker = new Worker('./src/worker.js')
+    calculationWorker = new Worker(path.join(__dirname, 'worker.js'))
 
     calculationWorker.on('error', (err) => {
       console.log('\nGot Error', {

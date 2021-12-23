@@ -1,3 +1,4 @@
+const plugins = require('./webpack.main.plugins')
 const path = require('path')
 
 module.exports = {
@@ -10,6 +11,7 @@ module.exports = {
   module: {
     rules: require('./webpack.rules'),
   },
+  plugins: plugins,
   resolve: {
     alias: {
       '@binmanager': path.resolve('./src'),
