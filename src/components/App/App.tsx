@@ -33,30 +33,13 @@ const App = (props: any) => {
     setResult(undefined)
   }
 
-  ipcRenderer.on('calculate-bars-complete', (event, args) => {
-    console.log('Work done', args)
+  ipcRenderer.on('calculate-bars-complete', (_event, { result }) => {
+    setResult(result)
     setLoading(false)
   })
 
   const handleCalculate = () => {
     setLoading(true)
-
-    const REBAR_UNIT_LENGTH = 12
-
-    ipcRenderer.send('calculate-bars')
-
-    console.log({
-      length1,
-      length2,
-      quantity1,
-      quantity2,
-    })
-
-    const newResult: ResultsProps = {
-      totalLengthRebars: 0,
-      wastedRebars: 0,
-      totalNumberRebars: 0,
-    }
 
     // Sort in ascending order
     const lengths = [
@@ -64,30 +47,11 @@ const App = (props: any) => {
       { length: length2, quantity: quantity2 },
     ].sort((a, b) => b.length - a.length)
 
-    for (const val of lengths) {
-      if (val.length === 0) continue
-
-      const totalLength = val.length * val.quantity
-
-      const wholeRequired = Math.floor(totalLength / REBAR_UNIT_LENGTH)
-      const totalMadeFromWhole = wholeRequired * REBAR_UNIT_LENGTH
-
-      const leftToMake = totalLength - totalMadeFromWhole
-
-      console.log({
-        totalLength,
-        totalMadeFromWhole,
-        wholeRequired,
-        leftToMake,
-        val: Math.floor(3.33),
-      })
-
-      newResult.totalNumberRebars =
-        newResult.totalNumberRebars + (leftToMake > 0 ? wholeRequired + 1 : wholeRequired)
-      newResult.totalLengthRebars = newResult.totalLengthRebars + totalLength
-      newResult.wastedRebars =
-        newResult.wastedRebars + (leftToMake > 0 ? REBAR_UNIT_LENGTH - leftToMake : 0)
+    if ([length1 * quantity1, length2 * quantity2].reduce((prev, acc) => acc + prev) === 0) {
+      setLoading(false)
+      return
     }
+    ipcRenderer.send('calculate-bars', { lengths })
   }
 
   return (

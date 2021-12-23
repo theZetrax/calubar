@@ -55,29 +55,27 @@ app.on('window-all-closed', () => {
 
 // Added Worker
 // Do process intensive task
-ipcMain.on('calculate-bars', (event, args) => {
-  console.log('Async Work Here', args)
-
+ipcMain.on('calculate-bars', (event, { lengths }) => {
   let calculationWorker: Worker
   if (isMainThread) {
+    // Loading calculation worker
     calculationWorker = new Worker('./src/worker.js')
 
-    calculationWorker.on('error', (data) => {
+    calculationWorker.on('error', (err) => {
       console.log('\nGot Error', {
-        data,
+        err,
       })
     })
 
     calculationWorker.on('exit', (data) => {
-      console.log('Got Exit')
+      console.log('Worker Exiting...')
     })
 
-    calculationWorker.on('message', () => {
-      console.log('Message back')
-      event.reply('calculate-bars-complete', { value: 2 })
+    calculationWorker.on('message', ({ result }) => {
+      event.reply('calculate-bars-complete', { result })
       calculationWorker.terminate()
     })
   }
 
-  calculationWorker.postMessage({ value: 2, apple: 'blue' })
+  calculationWorker.postMessage({ lengths })
 })
