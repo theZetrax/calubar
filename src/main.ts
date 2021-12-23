@@ -1,16 +1,21 @@
 import { app, BrowserWindow } from 'electron'
+import { ipcMain } from 'electron'
 import { env } from 'process'
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 
+// If not, the mainWindow object will be garbage collected
+let mainWindow
+
 function createWindow() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     height: 800,
     width: 800,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   })
@@ -46,3 +51,12 @@ app.on('window-all-closed', () => {
 
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
+
+// Do process intensive task
+ipcMain.on('calculate-bars', (event, args) => {
+  console.log('Async Work Here', args)
+
+  setTimeout(() => {
+    event.reply('calculate-bars-complete', 'complete')
+  }, 1500)
+})

@@ -1,4 +1,7 @@
+const { ipcRenderer } = window.require('electron')
+
 import React, { CSSProperties, useState } from 'react'
+
 import { Typography, Space, InputNumber, Button, Form } from 'antd'
 import './App.css'
 
@@ -30,10 +33,17 @@ const App = (props: any) => {
     setResult(undefined)
   }
 
+  ipcRenderer.on('calculate-bars-complete', (event, args) => {
+    console.log('Work done', args)
+    setLoading(false)
+  })
+
   const handleCalculate = () => {
     setLoading(true)
 
     const REBAR_UNIT_LENGTH = 12
+
+    ipcRenderer.send('calculate-bars')
 
     console.log({
       length1,
@@ -78,12 +88,6 @@ const App = (props: any) => {
       newResult.wastedRebars =
         newResult.wastedRebars + (leftToMake > 0 ? REBAR_UNIT_LENGTH - leftToMake : 0)
     }
-
-    setTimeout(() => {
-      setResult(newResult)
-
-      setLoading(false)
-    }, 1500)
   }
 
   return (
