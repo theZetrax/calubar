@@ -1,6 +1,18 @@
 # Calubar
 
-A simple app that is used to manage your applications, automatically.
+A simple app that is used to manage your applications, automatically.This application features
+
+- ReactJS, with Antd UI framework
+- Typescript
+- Eslint & Prettier, formating and style-enforcement
+- husky, for linting and formatting on commit
+- webpack, configuring the build & transpiling of typescript, helps with Obfuscation the scource code.
+- jest, unit testing suite (configured but not used)
+- electron-forge, for generating application package
+- squirrel, for making windows installer
+- dependabot, for checking valnurabilities
+
+This application is multi-threaded, if there is a task that is compute intensive like calculating **rebars**, it is computed on a separate worker thread.
 
 ## Introduction
 
