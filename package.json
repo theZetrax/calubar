@@ -5,7 +5,7 @@
   "main": ".webpack/main",
   "scripts": {
     "lint": "eslint -c .eslintrc --ext .ts ./src",
-    "start": "export MODE=development && electron-forge start",
+    "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
@@ -39,6 +39,7 @@
     "copy-webpack-plugin": "^10.2.0",
     "css-loader": "^6.3.0",
     "electron": "^15.1.1",
+    "electron-winstaller": "^5.0.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.20.0",

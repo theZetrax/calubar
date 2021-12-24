@@ -23,6 +23,9 @@ module.exports = {
       name: '@electron-forge/maker-squirrel',
       config: {
         name: 'calubar',
+        version: '0.5.0',
+        setupExe: 'calubar_setup.exe',
+        authors: 'Zablon Dawit <zablon@qebero.dev>',
       },
     },
     {

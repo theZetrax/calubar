@@ -4,11 +4,63 @@ import { env } from 'process'
 import { isMainThread, Worker } from 'worker_threads'
 import path from 'path'
 
-const ICON_PATH = path.join(__dirname, 'assets', 'icons', 'png', '64x64.png')
+// this should be placed at top of main.js to handle setup events quickly
+if (handleSquirrelEvent()) {
+  // squirrel event handled and app will exit in 1000ms, so don't do anything else
+}
 
-console.log({
-  ICON_PATH,
-})
+// Handle squirrel for managing setup.
+function handleSquirrelEvent() {
+  if (process.argv.length === 1) {
+    return false
+  }
+
+  const ChildProcess = require('child_process')
+  const path = require('path')
+
+  const appFolder = path.resolve(process.execPath, '..')
+  const rootAtomFolder = path.resolve(appFolder, '..')
+  const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'))
+  const exeName = path.basename(process.execPath)
+
+  const spawn = function (command: any, args: any) {
+    let spawnedProcess, error
+
+    try {
+      spawnedProcess = ChildProcess.spawn(command, args, { detached: true })
+    } catch (error) {}
+
+    return spawnedProcess
+  }
+
+  const spawnUpdate = function (args: any) {
+    return spawn(updateDotExe, args)
+  }
+
+  const squirrelEvent = process.argv[1]
+  switch (squirrelEvent) {
+    case '--squirrel-install':
+    case '--squirrel-updated':
+      // Install desktop and start menu shortcuts
+      spawnUpdate(['--createShortcut', exeName])
+
+      setTimeout(app.quit, 1000)
+      return true
+
+    case '--squirrel-uninstall':
+      // Remove desktop and start menu shortcuts
+      spawnUpdate(['--removeShortcut', exeName])
+
+      setTimeout(app.quit, 1000)
+      return true
+
+    case '--squirrel-obsolete':
+      app.quit()
+      return true
+  }
+}
+
+const ICON_PATH = path.join(__dirname, 'assets', 'icons', 'png', '64x64.png')
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
@@ -42,7 +94,7 @@ function createWindow() {
 app.on('ready', () => {
   createWindow()
 
-  app.on('activate', function() {
+  app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
