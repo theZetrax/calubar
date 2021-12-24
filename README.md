@@ -1,4 +1,4 @@
-# binmanager
+# Calubar
 
 A simple app that is used to manage your applications, automatically.
 
@@ -21,13 +21,13 @@ To clone and run this repository you'll need [Git](https://git-scm.com) and [Nod
 
 ```bash
 # Clone this repository
-git clone https://github.com/theZetrax/binmanager.git
+git clone https://github.com/theZetrax/calucal.git
 # Go into the repository
-cd binmanager
+cd calubar
 # Install dependencies
-npm install
+yarn
 # Run the app
-npm start
+yarn start
 ```
 
 Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
