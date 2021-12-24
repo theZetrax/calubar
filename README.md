@@ -14,6 +14,9 @@ A simple app that is used to manage your applications, automatically.This applic
 
 This application is multi-threaded, if there is a task that is compute intensive like calculating **rebars**, it is computed on a separate worker thread.
 
+![husky working](./docs/husky.jpg).
+_husky at work_ 😍
+
 ## Introduction
 
 This program lets you organize and manage your applications you download
