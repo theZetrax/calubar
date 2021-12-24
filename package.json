@@ -1,7 +1,7 @@
 {
-  "name": "binmanager",
+  "name": "calubar",
   "version": "1.0.0",
-  "description": "A simple way to manage your applications.",
+  "description": "A simple way to calculate your bars.",
   "main": ".webpack/main",
   "scripts": {
     "lint": "eslint -c .eslintrc --ext .ts ./src",
@@ -21,7 +21,7 @@
   "author": "Zablon Dawit <contact@zetrax.io> (zetrax.io)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/theZetrax/binmanager"
+    "url": "https://github.com/theZetrax/calubar"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.61",

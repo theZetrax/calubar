@@ -22,7 +22,7 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        name: 'binmanager',
+        name: 'calubar',
       },
     },
     {

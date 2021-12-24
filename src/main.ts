@@ -4,6 +4,12 @@ import { env } from 'process'
 import { isMainThread, Worker } from 'worker_threads'
 import path from 'path'
 
+const ICON_PATH = path.join(__dirname, 'assets', 'icons', 'png', '64x64.png')
+
+console.log({
+  ICON_PATH,
+})
+
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string
 
@@ -15,6 +21,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     height: 800,
     width: 800,
+    icon: ICON_PATH,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
